@@ -25,7 +25,7 @@
 
 
 import inspect
-import expression
+from . import expression
 
 class Dispatcher(object):
     
@@ -124,7 +124,7 @@ def on(param_name,parent = None):
     def f(fn):
         dispatcher = Dispatcher(param_name, fn)
         if parent != None:
-            func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+            func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
             other_dispatcher = getattr(parent,func_name)
             if not isinstance(other_dispatcher, Dispatcher):
                 other_dispatcher = other_dispatcher.dispatcher
@@ -136,7 +136,7 @@ def on(param_name,parent = None):
 def when(param_type):
     def f(fn):
         frame = inspect.currentframe().f_back
-        func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+        func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
         dispatcher = frame.f_locals[func_name]
         if not isinstance(dispatcher, Dispatcher):
             dispatcher = dispatcher.dispatcher
@@ -155,7 +155,7 @@ def function(arg):
         frame = inspect.currentframe().f_back
         if F is None:
             frame = frame.f_back
-        func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+        func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
         dispatcher = frame.f_locals[func_name]
         if not isinstance(dispatcher, Dispatcher):
             dispatcher = dispatcher.dispatcher
@@ -181,7 +181,7 @@ def obj(arg):
         frame = inspect.currentframe().f_back
         if typ is None:
             frame = frame.f_back
-        func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+        func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
         dispatcher = frame.f_locals[func_name]
         if not isinstance(dispatcher, Dispatcher):
             dispatcher = dispatcher.dispatcher
@@ -207,7 +207,7 @@ def atomic(arg):
         frame = inspect.currentframe().f_back
         if symbol is None:
             frame = frame.f_back
-        func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+        func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
         dispatcher = frame.f_locals[func_name]
         if not isinstance(dispatcher, Dispatcher):
             dispatcher = dispatcher.dispatcher
@@ -229,7 +229,7 @@ def atomic(arg):
 def symbol(fn):
 
     frame = inspect.currentframe().f_back
-    func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+    func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
     dispatcher = frame.f_locals[func_name]
     if not isinstance(dispatcher, Dispatcher):
         dispatcher = dispatcher.dispatcher
@@ -241,7 +241,7 @@ def symbol(fn):
 
 def binary_operator(fn):
     frame = inspect.currentframe().f_back
-    func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+    func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
     dispatcher = frame.f_locals[func_name]
     if not isinstance(dispatcher, Dispatcher):
         dispatcher = dispatcher.dispatcher
@@ -253,7 +253,7 @@ def binary_operator(fn):
 
 def unary_operator(fn):
     frame = inspect.currentframe().f_back
-    func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+    func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
     dispatcher = frame.f_locals[func_name]
     if not isinstance(dispatcher, Dispatcher):
         dispatcher = dispatcher.dispatcher
@@ -265,7 +265,7 @@ def unary_operator(fn):
 
 def wildcard_symbol(fn):
     frame = inspect.currentframe().f_back
-    func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+    func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
     dispatcher = frame.f_locals[func_name]
     if not isinstance(dispatcher, Dispatcher):
         dispatcher = dispatcher.dispatcher
@@ -277,7 +277,7 @@ def wildcard_symbol(fn):
 
 def wildcard_function(fn):
     frame = inspect.currentframe().f_back
-    func_name = fn.func_name if 'func_name' in dir(fn) else fn.__name__
+    func_name = fn.__name__ if 'func_name' in dir(fn) else fn.__name__
     dispatcher = frame.f_locals[func_name]
     if not isinstance(dispatcher, Dispatcher):
         dispatcher = dispatcher.dispatcher

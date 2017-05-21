@@ -1,6 +1,6 @@
 
 import expresso.pycas as pc
-import rule_symbols as s
+from . import rule_symbols as s
 
 evaluator = pc.RewriteEvaluator(recursive=True, split_binary=True)
 
@@ -67,7 +67,7 @@ evaluator.add_rule(-s.x < s.y, s.z, binary_rule(lambda x, y: -x < y), condition=
 def is_even(x):
     return pc.equal(pc.mod(x,2),0)
 
-from type_evaluator import issubtype
+from .type_evaluator import issubtype
 
 def is_uneven(x):
     return pc.And(issubtype(x,pc.Types.Integer),pc.Not(is_even(x)))

@@ -3,8 +3,8 @@ import expresso.visitor as visitor
 from expresso.printer import Printer
 from mpmath import mp
 
-import functions as f
-import expression as e
+from . import functions as f
+from . import expression as e
 
 class CodePrinter(Printer):
 

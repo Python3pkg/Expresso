@@ -1,11 +1,11 @@
 
 import expresso.pycas as pc
-import canonical_form
-import logic_evaluator
-import numeric_evaluator
-import type_evaluator
-import main_evaluator
-import expand_evaluator
+from . import canonical_form
+from . import logic_evaluator
+from . import numeric_evaluator
+from . import type_evaluator
+from . import main_evaluator
+from . import expand_evaluator
 
 __cached_evaluators = {}
 __use_global_cache = False
@@ -37,7 +37,7 @@ def set_debug(v):
         from IPython.display import display_latex
         import sys
 
-        print "appy rule: %s" % r
+        print("appy rule: %s" % r)
 
         lt = pc.latex(r.search.subs(m,evaluate=False)),\
              pc.latex(r.replacement.subs(m,evaluate=False)),\

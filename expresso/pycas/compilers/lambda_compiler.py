@@ -3,6 +3,7 @@ import expresso.visitor as visitor
 from .. import expression as e
 from .. import functions as f
 from mpmath import mp
+from functools import reduce
 
 class LambdaCompiler(object):
 
@@ -201,7 +202,7 @@ class LambdaCompiler(object):
         eval_args = [self.visit(arg.args[0]) for arg in expr.args]
 
         def evaluate(args):
-            for i in xrange(len(cond_args)):
+            for i in range(len(cond_args)):
                 if cond_args[i](args):
                     return eval_args[i](args)
             return 0

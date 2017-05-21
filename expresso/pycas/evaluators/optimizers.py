@@ -2,7 +2,7 @@
 
 
 import expresso.pycas as pc
-import rule_symbols as s
+from . import rule_symbols as s
 from .logic_evaluator import is_numeric,is_atomic
 
 from .canonical_form import format_evaluator

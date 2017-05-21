@@ -1,6 +1,6 @@
 
 import expresso.pycas as pc
-import rule_symbols as s
+from . import rule_symbols as s
 
 logic_evaluator = pc.RewriteEvaluator(recursive=True,split_binary=True)
 evaluator = logic_evaluator

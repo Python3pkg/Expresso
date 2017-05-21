@@ -214,7 +214,7 @@ class ReplacementMap(object):
             self._replacement_map = rep
         elif rep != None:
             self._replacement_map = core.replacement_map()
-            for key, value in dict(rep).iteritems():
+            for key, value in dict(rep).items():
                 self._replacement_map[S(key)] = S(value)
         else:
             self._replacement_map = core.replacement_map()

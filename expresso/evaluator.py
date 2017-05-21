@@ -1,4 +1,4 @@
-from expression import core,Function,WrappedType,ReplacementMap
+from .expression import core,Function,WrappedType,ReplacementMap
 
 class Evaluator(object):
 

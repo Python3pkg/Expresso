@@ -1,6 +1,6 @@
 
-from expression import *
-from functions import *
+from .expression import *
+from .functions import *
 from expresso.visitor import add_target,add_target_obj
 
 @add_target(printer,addition)

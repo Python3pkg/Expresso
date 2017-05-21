@@ -1,5 +1,5 @@
 
-import printer
+from . import printer
 
 from .expression import *
 from .functions import *

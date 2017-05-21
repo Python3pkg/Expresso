@@ -1,6 +1,6 @@
 
 import expresso.pycas as pc
-import rule_symbols as s
+from . import rule_symbols as s
 
 evaluator = pc.RewriteEvaluator(recursive=True, split_binary=True)
 factor_evaluator = pc.RewriteEvaluator(recursive=True, split_binary=True)
@@ -46,7 +46,7 @@ factor_evaluator.add_rule(s.x**s.n*s.x, s.x**(s.n+1))
 factor_evaluator.add_rule(s.x**s.n*s.x**s.m, s.x**(s.n+s.m))
 
 
-from logic_evaluator import is_explicit_natural
+from .logic_evaluator import is_explicit_natural
 
 evaluator.add_rule(s.a**s.x*s.b**s.x, (s.a*s.b)**(s.x), condition=pc.And(pc.Not(pc.Or(is_explicit_natural(s.a),is_explicit_natural(s.b))),pc.Or(issubtype(s.x,pc.Types.Natural),s.a>0,s.b>0)))
 

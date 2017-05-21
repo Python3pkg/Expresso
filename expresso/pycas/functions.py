@@ -101,8 +101,8 @@ def create_type(name,**kwargs):
 
 class Types:
   Boolean = create_type('Boolean',python_type=bool,c_type='bool')
-  Natural = create_type('Natural',python_type=long,c_type='unsigned')
-  Integer = create_type('Integer',python_type=long,c_type='long')
+  Natural = create_type('Natural',python_type=int,c_type='unsigned')
+  Integer = create_type('Integer',python_type=int,c_type='long')
   Rational = create_type('Rational',python_type=float,c_type='double')
   Real = create_type('Real',python_type=float,c_type='double')
   Complex = create_type('Complex',python_type=complex,c_type='c_complex')
@@ -153,7 +153,7 @@ def custom_function(name,argc = None,return_type = None,**kwargs):
             raise ValueError('argc needs to be defined to register result type')
 
         # TODO: register in local context, not global evaluators
-        from evaluators.type_evaluator import evaluator
+        from .evaluators.type_evaluator import evaluator
         for c in argc:
             evaluator.add_rule(Type(res(*[Wildcard(str(s)) for s in range(c)])),return_type)
 
@@ -186,7 +186,7 @@ def array(name,inarray):
     import numpy as np
 
     if not inarray.dtype.name in type_converters.numpy_c_typenames:
-        raise ValueError('Array dtype must be one of the following: %s' % ','.join(type_converters.numpy_c_typenames.keys()))
+        raise ValueError('Array dtype must be one of the following: %s' % ','.join(list(type_converters.numpy_c_typenames.keys())))
 
     array = inarray #np.ascontiguousarray(inarray,dtype=cast_type)
     pointer = array.ctypes.data
@@ -207,10 +207,10 @@ def array(name,inarray):
             args = [self.array_obj] + list(args)
             return ArrayAccess(*args)
 
-    for t,v in inverse_python_types.iteritems():
+    for t,v in inverse_python_types.items():
         if isinstance(inarray.dtype,t):
             # TODO: register in local context, not global evaluators
-            from evaluators.type_evaluator import evaluator
+            from .evaluators.type_evaluator import evaluator
             evaluator.add_rule(ArrayAccessDelegate([Wildcard(str(i)) for i in range(array.shape)]),v)
             break
 

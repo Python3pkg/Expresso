@@ -1,12 +1,12 @@
 
 import expresso
 
-Number = long
+Number = int
 
 def Symbol(name,type=None,positive = False,latex = None,repr = None):
     s = Expression(expresso.create_symbol(name))
     if type != None:
-        from functions import Type
+        from .functions import Type
         global_context.add_definition(Type(s),type)
     if positive == True:
         from .functions import sign
@@ -14,12 +14,12 @@ def Symbol(name,type=None,positive = False,latex = None,repr = None):
         global_context.add_definition(sign(s),1)
     if latex is not None:
         latex_rep = latex
-        from printer import latex,add_target
+        from .printer import latex,add_target
         @add_target(latex,s)
         def print_latex(printer,expr):
             return latex_rep
     if repr is not None:
-        from printer import printer,add_target
+        from .printer import printer,add_target
         @add_target(printer,s)
         def evaluate(printer,expr):
             return repr
@@ -156,7 +156,7 @@ class Expression(expresso.WrappedExpression(expression_converter)):
     def __abs__(self):
         return Abs(self)
         
-    def __nonzero__(self):
+    def __bool__(self):
         raise ValueError('Cannot determine truth value of Expression. Perhaps you are using a python operator incorrectly?')
     
     def _repr_latex_(self):
@@ -174,7 +174,7 @@ class Expression(expresso.WrappedExpression(expression_converter)):
     def evaluate(self,context = None,**kwargs):
         if context == None:
             context = global_context
-        from evaluators import evaluate
+        from .evaluators import evaluate
         return evaluate(self,context = context,**kwargs)
     
     def subs(self,*args,**kwargs):
@@ -183,7 +183,7 @@ class Expression(expresso.WrappedExpression(expression_converter)):
         return res
 
     def N(self,prec = 16,**kwargs):
-        from compilers import N
+        from .compilers import N
         return N(self,mp_dps=prec,**kwargs)
 
     def approximate(self,prec = 16,**kwargs):
@@ -201,7 +201,7 @@ class Expression(expresso.WrappedExpression(expression_converter)):
         return complex(self.evaluate().N())
 
     def __int__(self):
-        from compilers import lambdify
+        from .compilers import lambdify
         v = lambdify(self.evaluate())()
         try:
             return int(v)
@@ -209,10 +209,10 @@ class Expression(expresso.WrappedExpression(expression_converter)):
             raise RuntimeError('expression %s is not convertable to int' % self)
 
     def __long__(self):
-        from compilers import lambdify
+        from .compilers import lambdify
         v = lambdify(self.evaluate())()
         try:
-            return long(v)
+            return int(v)
         except:
             raise RuntimeError('expression %s is not convertable to long' % self)
 

@@ -1,6 +1,7 @@
 
-from expression import *
-import visitor
+from .expression import *
+from . import visitor
+from functools import reduce
 
 __all__ = ["Printer","LatexPrinter"]
 

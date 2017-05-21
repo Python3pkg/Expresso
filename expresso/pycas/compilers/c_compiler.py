@@ -345,7 +345,7 @@ template <class T,size_t ... size_stride> struct mapped_ndarray{
 class CompilerError(Exception):
 
     def __init__(self, message):
-        if isinstance(message, unicode):
+        if isinstance(message, str):
             super(CompilerError, self).__init__(message.encode('utf-8'))
             self.message = message
         elif isinstance(message, str):
@@ -385,10 +385,10 @@ def ccompile(*function_definitions,**kwargs):
     print_warnings = print_output or kwargs.pop('print_warnings',False)
 
     if print_warnings:
-        print p.stderr.read()
+        print(p.stderr.read())
 
     if print_output:
-        print p.stdout.read()
+        print(p.stdout.read())
 
     shared_library = output_directory+'/'+'pycas_compiled_expression.so'
     p = Popen(['g++','-shared','-o',shared_library,object_file],stdin=PIPE, stdout=PIPE, stderr=PIPE)
@@ -399,10 +399,10 @@ def ccompile(*function_definitions,**kwargs):
         raise RuntimeError("Cannot convert to shared library: " + p.stderr.read())
 
     if print_warnings:
-        print p.stderr.read()
+        print(p.stderr.read())
 
     if print_output:
-        print p.stdout.read()
+        print(p.stdout.read())
 
     lib = ctypes.cdll.LoadLibrary(shared_library)
     shutil.rmtree(output_directory)

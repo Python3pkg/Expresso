@@ -1,7 +1,7 @@
 
-from lambda_compiler import lambdify,mpmathify,N
-from numpy_compiler import numpyfy,ncompile
-from c_compiler import ccompile,c_complex
+from .lambda_compiler import lambdify,mpmathify,N
+from .numpy_compiler import numpyfy,ncompile
+from .c_compiler import ccompile,c_complex
 
 
 class FunctionDefinition(object):

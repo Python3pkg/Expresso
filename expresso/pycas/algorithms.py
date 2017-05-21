@@ -46,11 +46,11 @@ def create_conditional_factor_evaluator(condition):
     evaluator.add_rule(-a+b,c*(-a+b),group_evaluator)
     evaluator.add_rule(-a-b,-c*(a+b),group_evaluator)
 
-    from evaluators.canonical_form import canonical_form,format_evaluator
-    from evaluators.logic_evaluator import logic_evaluator
-    from evaluators.numeric_evaluator import numeric_evaluator
-    from evaluators.type_evaluator import type_evaluator
-    from evaluators.main_evaluator import evaluator as main_evaluator
+    from .evaluators.canonical_form import canonical_form,format_evaluator
+    from .evaluators.logic_evaluator import logic_evaluator
+    from .evaluators.numeric_evaluator import numeric_evaluator
+    from .evaluators.type_evaluator import type_evaluator
+    from .evaluators.main_evaluator import evaluator as main_evaluator
 
     conditional_factor = MultiEvaluator(recursive = True, split_binary=True)
     conditional_factor.add_evaluator(canonical_form)

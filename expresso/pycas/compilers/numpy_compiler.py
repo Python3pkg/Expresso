@@ -4,6 +4,7 @@ import numpy as np
 from .. import expression as e
 from .. import functions as f
 from mpmath import mp
+from functools import reduce
 
 class NumpyCompiler(LambdaCompiler):
 
@@ -73,7 +74,7 @@ class NumpyCompiler(LambdaCompiler):
                     valid &= unset
 
                 new_args = { name:arg[valid] if isinstance(arg,np.ndarray) and arg.shape==shape else arg
-                            for name,arg in args.iteritems() }
+                            for name,arg in args.items() }
 
                 values = np.array(val(new_args))
 
@@ -155,13 +156,13 @@ class NumpyCompiler(LambdaCompiler):
 
 
 def get_example_arg(args):
-    for arg in args.values():
+    for arg in list(args.values()):
         if isinstance(arg,np.ndarray):
             return arg
-    for arg in args.values():
+    for arg in list(args.values()):
         if hasattr(arg,"__len__"):
             return arg
-    return args.values()[0]
+    return list(args.values())[0]
 
 
 def prepare_arguments(args):
@@ -169,10 +170,10 @@ def prepare_arguments(args):
 
     if not hasattr(example_arg,"__len__"):
         shape = None
-        args = { name:np.array([arg]) for name,arg in args.iteritems() }
+        args = { name:np.array([arg]) for name,arg in args.items() }
     else:
         shape = np.array(example_arg).shape
-        args = { name:(np.array(arg) if hasattr(arg,"__len__") else arg) for name,arg in args.iteritems() }
+        args = { name:(np.array(arg) if hasattr(arg,"__len__") else arg) for name,arg in args.items() }
 
     return args,shape
 
@@ -198,7 +199,7 @@ def make_parallel(f):
         result = np.zeros(shape,dtype = f.restype)
 
         def worker(s,args):
-            args = {name:(value[s[0]:s[1]]) if isinstance(value,np.ndarray) and value.shape==shape else value for name,value in args.iteritems()}
+            args = {name:(value[s[0]:s[1]]) if isinstance(value,np.ndarray) and value.shape==shape else value for name,value in args.items()}
             args['_slice'] = s
             result[s[0]:s[1]] = f(**args)
 

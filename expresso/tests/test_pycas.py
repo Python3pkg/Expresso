@@ -33,7 +33,7 @@ class TestCompilers(TestCase):
         random_numbers = np.random.rand(100)
         array_expr = numpyfy(array('rand',random_numbers)( floor(array('rand',random_numbers)(i)*100)),restype=float)
 
-        self.assertNumpyEqual( array_expr(i = range(10)), random_numbers[(random_numbers[range(10)]*100).astype(int)] )
+        self.assertNumpyEqual( array_expr(i = list(range(10))), random_numbers[(random_numbers[list(range(10))]*100).astype(int)] )
 
     def test_compiler_consistency(self):
 

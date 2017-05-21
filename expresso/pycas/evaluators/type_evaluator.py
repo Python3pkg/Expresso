@@ -1,6 +1,6 @@
 
 import expresso.pycas as pc
-import rule_symbols as s
+from . import rule_symbols as s
 
 ordered_types = (pc.Types.Boolean,pc.Types.Natural,pc.Types.Integer,pc.Types.Rational,pc.Types.Real,pc.Types.Complex)
 

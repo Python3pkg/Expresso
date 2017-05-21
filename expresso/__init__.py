@@ -1,10 +1,10 @@
-from expression import core,WrappedExpression
-import expression
-import evaluator
-import printer
-import visitor
+from .expression import core,WrappedExpression
+from . import expression
+from . import evaluator
+from . import printer
+from . import visitor
 
-from expression import associative,non_associative,left_associative,right_associative,commutative,non_commutative,postfix,prefix
+from .expression import associative,non_associative,left_associative,right_associative,commutative,non_commutative,postfix,prefix
 
 def create_object(data,unique_name=None):
     '''
